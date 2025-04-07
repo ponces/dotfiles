@@ -1,6 +1,6 @@
 {{- $gitName := "Alberto Ponces" -}}
 {{- $gitEmail := "ponces26@gmail.com" -}}
-{{- $cmfEnabled := true -}}
+{{- $cmfEnabled := false -}}
 
 {{- $devcontainer := or (env "CODESPACES") (env "REMOTE_CONTAINERS") | not | not -}}
 sourceDir = {{ .chezmoi.sourceDir | quote }}

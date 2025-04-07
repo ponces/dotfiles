@@ -4,6 +4,13 @@
 # -u: exit on unset variables
 set -eu
 
+if [ ! -n "$CODESPACES" ] && [ ! -n "$REMOTE_CONTAINERS" ] && ! command -v bw >/dev/null; then
+	curl -sfSL https://github.com/bitwarden/clients/releases/download/cli-v2025.3.0/bw-linux-2025.3.0.zip -o /tmp/bw.zip
+	unzip -joq /tmp/bw.zip bw -d $HOME/.local/bin
+	rm -f /tmp/bw.zip
+	chmod +x $HOME/.local/bin/bw
+fi
+
 if ! chezmoi="$(command -v chezmoi)"; then
 	bin_dir="${HOME}/.local/bin"
 	chezmoi="${bin_dir}/chezmoi"
