@@ -1,0 +1,33 @@
+[alias]
+	pushfwl = push --force-with-lease
+[color]
+	ui = auto
+[core]
+	editor = nano
+	{{ if .cmf.enabled -}}
+	sshCommand = "ssh.exe"
+	{{- end }}
+[credential]
+	helper = store
+[fetch]
+	prune = true
+	pruneTags = true
+{{ if eq .chezmoi.os "windows" -}}
+[http]
+	sslBackend = schannel
+{{ end -}}
+[oh-my-zsh]
+	hide-dirty = 1
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[rebase]
+	autosquash = true
+[user]
+	name = Alberto Ponces
+	{{ if .cmf.enabled -}}
+	email = {{ .cmf.git.email | quote }}
+	{{- else }}
+	email = {{ .git.email | quote }}
+	{{- end }}

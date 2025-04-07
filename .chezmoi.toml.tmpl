@@ -1,0 +1,21 @@
+{{- $gitName := promptStringOnce (. | dig "git" dict) "name" "What is your Git name" "Alberto Ponces" -}}
+{{- $gitEmail := promptStringOnce (. | dig "git" dict) "email" "What is your Git email" "ponces26@gmail.com" -}}
+{{- $cmfEnabled := and (lookPath "bw" | isExecutable) (promptBoolOnce (. | dig "cmf" dict) "enabled" "Do you want to initialise configuration for CMF") -}}
+
+[data.git]
+name = {{ $gitName | quote }}
+email = {{ $gitEmail | quote }}
+
+[data.windows]
+{{ $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+isWSL = {{ $isWSL | toToml }}
+
+[data.cmf]
+enabled = {{ $cmfEnabled | toToml }}
+
+{{ if $cmfEnabled -}}
+[data.cmf.git]
+{{ $bwIdentityUuid := "6fb5739a-e6a5-4bcb-9db2-b213007907fc" -}}
+{{- $bwIdentityFields := (bitwardenFields "item" $bwIdentityUuid) -}}
+email = {{ $bwIdentityFields.WorkEmail.value | quote }}
+{{- end }}
