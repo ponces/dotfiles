@@ -1,6 +1,15 @@
+{{- $gitName := "Alberto Ponces" -}}
+{{- $gitEmail := "ponces26@gmail.com" -}}
+{{- $cmfEnabled := true -}}
+
+{{- $devcontainer := or (env "CODESPACES") (env "REMOTE_CONTAINERS") | not | not -}}
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
+{{- if not $devcontainer }}
 {{- $gitName := promptStringOnce (. | dig "git" dict) "name" "What is your Git name" "Alberto Ponces" -}}
 {{- $gitEmail := promptStringOnce (. | dig "git" dict) "email" "What is your Git email" "ponces26@gmail.com" -}}
 {{- $cmfEnabled := and (lookPath "bw" | isExecutable) (promptBoolOnce (. | dig "cmf" dict) "enabled" "Do you want to initialise configuration for CMF") -}}
+{{- end }}
 
 [data.git]
 name = {{ $gitName | quote }}
