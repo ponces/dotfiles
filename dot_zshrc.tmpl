@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -103,7 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-#eval "$(vfox activate bash)"
 eval "$($HOME/.local/bin/mise activate zsh)"
 
 sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "ponces" --verbose; }
@@ -113,24 +112,16 @@ export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export ANDROID_TOOLCHAIN="$ANDROID_HOME/ndk/27.1.12297006/toolchains/llvm/prebuilt/linux-x86_64"
 export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
-export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$HOME/.local/bin:$PATH"
-export LD_LIBRARY_PATH="$HOME/.local/lib64:$HOME/.local/lib:$LD_LIBRARY_PATH"
+export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 {{ with .windows -}}
 {{- if .isWSL -}}
 export WIN_HOME_RAW="$(cmd.exe /c "<nul set /p=%UserProfile%" 2>/dev/null)"
 export WIN_HOME="$(wslpath $WIN_HOME_RAW)"
 {{- end -}}
 {{- end }}
-export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-
-if [ -d "$HOME/.local/share/aquaproj-aqua" ]; then
-    export AQUA_ROOT_DIR="$HOME/.local/share/aquaproj-aqua"
-    export AQUA_CONFIG_DIR="$HOME/.config/aquaproj-aqua"
-    export AQUA_GLOBAL_CONFIG="$AQUA_CONFIG_DIR/aqua.yaml"
-    export PATH=$AQUA_ROOT_DIR/bin:$PATH
-fi
 
 alias bumppre='npm install && npm run bump:pre'
 alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp1a-userdebug && make -j$(nproc --ignore=2) systemimage'
