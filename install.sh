@@ -1,11 +1,13 @@
 #!/bin/sh
 
-set -eu
+set -e
 
 export PATH="$HOME/.local/bin:$PATH"
 
 echo "Creating directories"
-mkdir -p $HOME/.local/{bin,share,etc}
+mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/etc
+mkdir -p $HOME/.local/share
 
 echo "Installing piu"
 curl -s https://raw.githubusercontent.com/ponces/piu/master/piu -o $HOME/.local/bin/piu
@@ -29,7 +31,7 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
 fi
 
 echo "Installing bitwarden CLI"
-if [ ! -n "$CODESPACES" ] && [ ! -n "$REMOTE_CONTAINERS" ] && ! command -v bw >/dev/null; then
+if [ -z "$CODESPACES" ] && [ -z "$REMOTE_CONTAINERS" ] && ! command -v bw >/dev/null; then
     curl -sfSL https://github.com/bitwarden/clients/releases/download/cli-v2025.3.0/bw-linux-2025.3.0.zip -o /tmp/bw.zip
     unzip -joq /tmp/bw.zip bw -d $HOME/.local/bin
     rm -f /tmp/bw.zip
