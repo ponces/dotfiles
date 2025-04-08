@@ -1,30 +1,35 @@
-{{- $gitName := "Alberto Ponces" -}}
-{{- $gitEmail := "ponces26@gmail.com" -}}
-{{- $cmfEnabled := false -}}
-
-{{- $devcontainer := or (env "CODESPACES") (env "REMOTE_CONTAINERS") | not | not -}}
+{{- $devcontainer := or (env "CODESPACES") (env "REMOTE_CONTAINERS") -}}
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-{{- if not $devcontainer }}
-{{- $gitName := promptStringOnce (. | dig "git" dict) "name" "What is your Git name" "Alberto Ponces" -}}
-{{- $gitEmail := promptStringOnce (. | dig "git" dict) "email" "What is your Git email" "ponces26@gmail.com" -}}
-{{- $cmfEnabled := and (lookPath "bw" | isExecutable) (promptBoolOnce (. | dig "cmf" dict) "enabled" "Do you want to initialise configuration for CMF") -}}
+{{- $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+
+{{- $gitName := "" -}}
+{{- $gitEmail := "" -}}
+{{- $cmfEnabled := false -}}
+
+{{- if not $devcontainer -}}
+{{-     $gitName = promptStringOnce . "name" "What is your Git name" "Alberto Ponces" -}}
+{{-     $gitEmail = promptStringOnce . "email" "What is your Git email" "ponces26@gmail.com" -}}
+{{-     $cmfEnabled = and (lookPath "bw" | isExecutable) (promptBoolOnce . "enabled" "Do you want to initialise configuration for CMF" false) -}}
+{{-     if $cmfEnabled -}}
+{{-         $bwIdentityFields := (bitwardenFields "item" "6fb5739a-e6a5-4bcb-9db2-b213007907fc") }}
+{{-         $gitEmail = $bwIdentityFields.WorkEmail.value -}}
+{{-     end -}}
+{{- else -}}
+{{-     $gitName = "Alberto Ponces" -}}
+{{-     $gitEmail = "ponces26@gmail.com" -}}
+{{-     $cmfEnabled = false -}}
 {{- end }}
+
+[data]
+    devcontainer = {{ $devcontainer | toToml }}
 
 [data.git]
-name = {{ $gitName | quote }}
-email = {{ $gitEmail | quote }}
+    name = {{ $gitName | quote }}
+    email = {{ $gitEmail | quote }}
 
 [data.windows]
-{{ $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-isWSL = {{ $isWSL | toToml }}
+    isWSL = {{ $isWSL | toToml }}
 
 [data.cmf]
-enabled = {{ $cmfEnabled | toToml }}
-
-{{ if $cmfEnabled -}}
-[data.cmf.git]
-{{ $bwIdentityUuid := "6fb5739a-e6a5-4bcb-9db2-b213007907fc" -}}
-{{- $bwIdentityFields := (bitwardenFields "item" $bwIdentityUuid) -}}
-email = {{ $bwIdentityFields.WorkEmail.value | quote }}
-{{- end }}
+    enabled = {{ $cmfEnabled | toToml }}

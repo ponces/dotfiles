@@ -1,11 +1,10 @@
 {{- $bwTelegramApiId := "" -}}
 {{- $bwTelegramApiHash := "" -}}
 
-{{- if not $devcontainer }}
-{{ $bwTelegramUuid := "8a027f64-1559-49e8-9973-af1701773899" -}}
-{{- $bwTelegramFields := (bitwardenFields "item" $bwTelegramUuid) -}}
-{{- $bwTelegramApiId := $bwTelegramFields.apiid.value | quote }}
-{{- $bwTelegramApiHash := $bwTelegramFields.apihash.value | quote }}
-{{- end }}
+{{- if not .devcontainer -}}
+{{-     $bwTelegramFields := (bitwardenFields "item" "8a027f64-1559-49e8-9973-af1701773899") -}}
+{{-     $bwTelegramApiId = $bwTelegramFields.ApiId.value -}}
+{{-     $bwTelegramApiHash = $bwTelegramFields.ApiHash.value -}}
+{{- end -}}
 
 {"api_id": {{ $bwTelegramApiId | quote }}, "api_hash": {{ $bwTelegramApiHash | quote }}}

@@ -25,9 +25,5 @@
 [rebase]
 	autosquash = true
 [user]
-	name = Alberto Ponces
-	{{ if .cmf.enabled -}}
-	email = {{ .cmf.git.email | quote }}
-	{{- else }}
+	name = {{ .git.name | quote }}
 	email = {{ .git.email | quote }}
-	{{- end }}
