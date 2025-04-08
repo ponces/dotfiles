@@ -15,6 +15,19 @@ echo "Installing required packages"
 export DEBIAN_FRONTEND=noninteractive
 piu i -y curl unzip zsh
 
+echo "Installing oh-my-zsh"
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+	yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+echo "Installing zsh plugins"
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+	git clone -q --depth=1 https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+fi
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+	git clone -q --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+fi
+
 echo "Installing bitwarden CLI"
 if [ ! -n "$CODESPACES" ] && [ ! -n "$REMOTE_CONTAINERS" ] && ! command -v bw >/dev/null; then
     curl -sfSL https://github.com/bitwarden/clients/releases/download/cli-v2025.3.0/bw-linux-2025.3.0.zip -o /tmp/bw.zip
