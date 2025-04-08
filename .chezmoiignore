@@ -1,3 +1,13 @@
 README.md
 LICENSE
 install.sh
+
+{{ if eq .chezmoi.os "windows" }}
+.bash_logout
+.bashrc
+.profile
+.screenrc
+.zshrc
+{{ else if eq .chezmoi.os "linux" }}
+.wslconfig
+{{ end }}
