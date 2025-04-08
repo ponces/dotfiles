@@ -4,18 +4,18 @@
 	ui = auto
 [core]
 	editor = nano
-	{{ if .cmf.enabled -}}
+{{- if .cmf.enabled }}
 	sshCommand = "ssh.exe"
-	{{- end }}
+{{- end }}
 [credential]
 	helper = store
 [fetch]
 	prune = true
 	pruneTags = true
-{{ if eq .chezmoi.os "windows" -}}
+{{- if eq .chezmoi.os "windows" }}
 [http]
 	sslBackend = schannel
-{{ end -}}
+{{- end }}
 [oh-my-zsh]
 	hide-dirty = 1
 [pull]
