@@ -10,7 +10,7 @@ mkdir -p $HOME/.local/etc
 mkdir -p $HOME/.local/share
 
 echo "Installing piu"
-curl -s https://raw.githubusercontent.com/ponces/piu/master/piu -o $HOME/.local/bin/piu
+curl -sfSL https://raw.githubusercontent.com/ponces/piu/master/piu -o $HOME/.local/bin/piu
 chmod +x $HOME/.local/bin/piu
 
 echo "Installing required packages"
@@ -19,7 +19,7 @@ piu i -y curl unzip zsh
 
 echo "Installing oh-my-zsh"
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-	yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	yes | sh -c "$(curl -sfSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
 echo "Installing zsh plugins"
@@ -28,6 +28,11 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
 fi
 if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
 	git clone -q --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+fi
+
+echo "Installing mise"
+if ! command -v mise >/dev/null; then
+    curl -sfSL https://mise.run | sh
 fi
 
 echo "Installing bitwarden CLI"
