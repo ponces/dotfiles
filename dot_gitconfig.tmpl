@@ -1,5 +1,17 @@
 [alias]
 	pushfwl = push --force-with-lease
+	newbranch = "!f() { git checkout -b $1; }; f"
+{{- if .cmf.enabled }}
+	newbranchcmf = "!f() { \
+		if [ -z \"$1\" ]; then echo 'Usage: git newbranchcmf <workitem-id>'; return 1; fi; \
+		export REQUESTS_CA_BUNDLE=\"$HOME/.local/share/azure-cli/ca-certificates.crt\"; \
+		TITLE=$(az boards work-item show --id \"$1\" --query 'fields.\"System.Title\"' -o tsv 2>/dev/null); \
+		if [ -z \"$TITLE\" ]; then echo \"Work item not found.\"; return 1; fi; \
+		SANITIZED=$(echo \"$TITLE\" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g'); \
+		BRANCH=\"dev-$1-$SANITIZED\"; \
+		git checkout -b \"$BRANCH\"; \
+	}; f"
+{{- end }}
 [color]
 	ui = auto
 [core]
