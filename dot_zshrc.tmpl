@@ -105,8 +105,6 @@ source $ZSH/oh-my-zsh.sh
 
 eval "$($HOME/.local/bin/mise activate zsh)"
 
-sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "ponces" --verbose; }
-
 export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
@@ -114,6 +112,9 @@ export ANDROID_TOOLCHAIN="$ANDROID_HOME/ndk/27.1.12297006/toolchains/llvm/prebui
 {{- if eq .chezmoi.hostname "ubuild01" }}
 export FILES_DIR="$HOME/.local/share/playground/docker/filebrowser/files"
 {{- end }}
+export GH_TOKEN=$(gh auth token)
+export GITHUB_TOKEN="$GH_TOKEN"
+export GITHUB_API_TOKEN="$GH_TOKEN"
 export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 {{- if eq .chezmoi.hostname "ubuild01" }}
 export PLAYGROUND_DIR="$HOME/.local/share/playground"
@@ -154,6 +155,9 @@ alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /d
 {{- end }}
 alias unlock='export BW_SESSION=$(bw unlock --raw) && bw sync'
 alias upload='telegram-upload'
+
+gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | grep -i "^location:" | awk '{print $2}' | tr -d '\r')"; }
+sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "$USER" --verbose; }
 
 {{- if eq .chezmoi.os "android" -}}
 sv-enable code
