@@ -111,10 +111,16 @@ export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export ANDROID_TOOLCHAIN="$ANDROID_HOME/ndk/27.1.12297006/toolchains/llvm/prebuilt/linux-x86_64"
+{{- if eq .chezmoi.hostname "ubuild01" }}
+export FILES_DIR="$HOME/.local/share/playground/docker/filebrowser/files"
+{{- end }}
 export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+{{- if eq .chezmoi.hostname "ubuild01" }}
+export PLAYGROUND_DIR="$HOME/.local/share/playground"
+{{- end }}
 {{- with .windows -}}
-{{- if .isWSL -}}
+{{- if .isWSL }}
 export WIN_HOME_RAW="$(cmd.exe /c "<nul set /p=%UserProfile%" 2>/dev/null)"
 export WIN_HOME="$(wslpath $WIN_HOME_RAW)"
 {{- end -}}
