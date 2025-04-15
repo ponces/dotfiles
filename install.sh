@@ -34,6 +34,7 @@ echo "Installing mise"
 if ! command -v mise >/dev/null; then
     curl -sfSL https://mise.run | sh
 fi
+mise settings experimental=true
 
 echo "Installing bitwarden CLI"
 if [ -z "$CODESPACES" ] && [ -z "$REMOTE_CONTAINERS" ] && ! command -v bw >/dev/null; then
