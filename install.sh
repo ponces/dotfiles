@@ -2,6 +2,8 @@
 
 set -e
 
+[ -z $TMPDIR ] && [ -d /tmp ] && TMPDIR="/tmp"
+
 export PATH="$HOME/.local/bin:$PATH"
 
 echo "Creating directories"
@@ -15,7 +17,7 @@ chmod +x $HOME/.local/bin/piu
 
 echo "Installing required packages"
 export DEBIAN_FRONTEND=noninteractive
-piu i -y curl unzip zsh
+piu i -y curl jq tar unzip zsh
 
 echo "Installing oh-my-zsh"
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -37,11 +39,24 @@ fi
 mise settings experimental=true
 
 echo "Installing bitwarden CLI"
-if [ -z "$CODESPACES" ] && [ -z "$REMOTE_CONTAINERS" ] && ! command -v bw >/dev/null; then
-    curl -sfSL https://github.com/bitwarden/clients/releases/download/cli-v2025.3.0/bw-linux-2025.3.0.zip -o /tmp/bw.zip
-    unzip -joq /tmp/bw.zip bw -d $HOME/.local/bin
-    rm -f /tmp/bw.zip
+if ! command -v bw >/dev/null; then
+    curl -sfSL https://github.com/bitwarden/clients/releases/download/cli-v2025.3.0/bw-linux-2025.3.0.zip -o $TMP/bw.zip
+    unzip -joq $TMP/bw.zip bw -d $HOME/.local/bin
+    rm -f $TMP/bw.zip
     chmod +x $HOME/.local/bin/bw
+fi
+
+echo "Installing github CLI"
+if ! command -v gh >/dev/null; then
+    link=$(curl -sfSL "https://api.github.com/repos/cli/cli/releases/latest" | \
+                jq -r ".assets[] | \
+                    select(.name | endswith(\"_linux_amd64.tar.gz\")) | \
+                    .browser_download_url" | \
+                head -1)
+    curl -sfSL "$link" -o $TMPDIR/github.tar.gz
+    tar -xzf $TMPDIR/github.tar.gz -C $HOME/.local --strip-components=1
+    rm -f $TMPDIR/github.tar.gz
+    rm -f $HOME/.local/LICENSE
 fi
 
 echo "Installing chezmoi"
