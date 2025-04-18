@@ -40,9 +40,9 @@ mise settings experimental=true
 
 echo "Installing bitwarden CLI"
 if ! command -v bw >/dev/null; then
-    curl -sfSL https://github.com/bitwarden/clients/releases/download/cli-v2025.3.0/bw-linux-2025.3.0.zip -o $TMP/bw.zip
-    unzip -joq $TMP/bw.zip bw -d $HOME/.local/bin
-    rm -f $TMP/bw.zip
+    curl -sfSL https://github.com/bitwarden/clients/releases/download/cli-v2025.3.0/bw-linux-2025.3.0.zip -o $TMPDIR/bw.zip
+    unzip -joq $TMPDIR/bw.zip bw -d $HOME/.local/bin
+    rm -f $TMPDIR/bw.zip
     chmod +x $HOME/.local/bin/bw
 fi
 
