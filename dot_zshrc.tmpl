@@ -112,12 +112,13 @@ export ANDROID_TOOLCHAIN="$ANDROID_HOME/ndk/27.1.12297006/toolchains/llvm/prebui
 {{- if eq .chezmoi.hostname "ubuild01" }}
 export FILES_DIR="$HOME/.local/share/playground/docker/filebrowser/files"
 {{- end }}
-export GH_TOKEN=$(gh auth token)
+export GH_TOKEN="$(gh auth token)"
 export GITHUB_TOKEN="$GH_TOKEN"
 export GITHUB_API_TOKEN="$GH_TOKEN"
 export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-{{- if eq .chezmoi.hostname "ubuild01" }}
 export PLAYGROUND_DIR="$HOME/.local/share/playground"
+{{- if eq .chezmoi.hostname "ubuntu-pc" }}
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- end }}
 {{- with .windows -}}
 {{- if .isWSL }}
