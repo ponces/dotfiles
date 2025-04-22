@@ -7,8 +7,10 @@
 		export REQUESTS_CA_BUNDLE=\"$HOME/.local/share/azure-cli/ca-certificates.crt\"; \
 		TITLE=$(az boards work-item show --id \"$1\" --query 'fields.\"System.Title\"' -o tsv 2>/dev/null); \
 		if [ -z \"$TITLE\" ]; then echo \"Work item not found.\"; return 1; fi; \
+		BASE=$(git rev-parse --abbrev-ref HEAD); \
+		if [ \"$BASE\" != \"dev\" ]; then PREFIX=\"$(echo $BASE | sed 's/dev/feature/g')/\"; fi; \
 		SANITIZED=$(echo \"$TITLE\" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g'); \
-		BRANCH=\"dev-$1-$SANITIZED\"; \
+		BRANCH=\"${PREFIX}dev-$1-$SANITIZED\"; \
 		git checkout -b \"$BRANCH\"; \
 	}; f"
 {{- end }}
