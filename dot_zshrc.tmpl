@@ -157,7 +157,10 @@ alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /d
 alias unlock='export BW_SESSION=$(bw unlock --raw) && bw sync'
 alias upload='telegram-upload'
 
+unalias gradle
+
 gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | grep -i "^location:" | awk '{print $2}' | tr -d '\r')"; }
+gradle() { gradle-or-gradlew "$@" | ccze -A; }
 sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "$USER" --verbose; }
 
 {{- if eq .chezmoi.os "android" -}}
