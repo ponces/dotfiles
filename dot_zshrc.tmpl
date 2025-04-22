@@ -134,6 +134,10 @@ alias bumppre='npm install && npm run bump:pre'
 alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp1a-userdebug && make -j$(nproc --ignore=2) systemimage'
 alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
+{{- if eq .chezmoi.hostname "ubuntu-pc" }}
+alias cdown='cd $HOME/Downloads'
+alias cgit='cd $HOME/Git'
+{{- end }}
 {{- with .windows -}}
 {{- if .isWSL -}}
 alias cdown='cd $WIN_HOME/Downloads'
