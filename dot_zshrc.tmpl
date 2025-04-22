@@ -167,7 +167,7 @@ gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | gre
 gradle() { gradle-or-gradlew "$@" | ccze -A; }
 sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "$USER" --verbose; }
 
-{{- if eq .chezmoi.os "android" -}}
+{{ if eq .chezmoi.os "android" -}}
 sv-enable code
 sv-enable sshd
 keychain id_ubuild01 id_github 2>/dev/null
