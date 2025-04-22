@@ -17,7 +17,7 @@ chmod +x $HOME/.local/bin/piu
 
 echo "Installing required packages"
 export DEBIAN_FRONTEND=noninteractive
-piu i -y curl ccze jq tar unzip zsh
+piu i -y curl ccze jq less tar unzip zsh
 
 echo "Installing oh-my-zsh"
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
