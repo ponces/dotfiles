@@ -142,6 +142,7 @@ alias cgit='cd $HOME/Git'
 {{- if .isWSL -}}
 alias cdown='cd $WIN_HOME/Downloads'
 alias cgit='cd $WIN_HOME/Git'
+alias devcode='mypath="$(wslpath -w $PWD)" && p=$(printf "%s" "$mypath" | hexdump -v -e "/1 \"%02x\"") && code --folder-uri "vscode-remote://dev-container+${p}/workspaces/$(basename $PWD)"'
 {{- end -}}
 {{- end }}
 alias lock='unset BW_SESSION && bw lock'
