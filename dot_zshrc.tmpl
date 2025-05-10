@@ -155,6 +155,7 @@ alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
 {{- end -}}
 {{- end }}
+alias sshcode='code --remote ssh-remote+ubuild01'
 {{- if eq .chezmoi.os "android" -}}
 alias tmuxbackup='tar -zcf $HOME/storage/downloads/termux-backup-$(date '"'"'+%Y%m%d%H%M'"'"').tar.gz -C /data/data/com.termux/files ./home ./usr'
 alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /data/data/com.termux/files --recursive-unlink --preserve-permissions'
