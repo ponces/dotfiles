@@ -39,6 +39,8 @@
 	autoSetupRemote = true
 [rebase]
 	autosquash = true
+[safe]
+	directory = *
 [user]
 	name = {{ .git.name | quote }}
 	email = {{ .git.email | quote }}
