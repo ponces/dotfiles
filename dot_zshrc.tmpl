@@ -139,7 +139,7 @@ alias cdown='cd $HOME/Downloads'
 alias cgit='cd $HOME/Git'
 {{- end }}
 {{- with .windows -}}
-{{- if .isWSL -}}
+{{- if .isWSL }}
 alias cdown='cd $WIN_HOME/Downloads'
 alias cgit='cd $WIN_HOME/Git'
 alias devcode='mypath="$(wslpath -w $PWD)" && p=$(printf "%s" "$mypath" | hexdump -v -e "/1 \"%02x\"") && code --folder-uri "vscode-remote://dev-container+${p}/workspaces/$(basename $PWD)"'
@@ -150,7 +150,7 @@ alias pubdev='npm install && npm run build:bundle && npm run publish:dev'
 alias pubnext='npm install && npm run build:bundle && npm run publish'
 alias publast='npm install && npm run build:bundle && npm run publish:live'
 {{- with .windows -}}
-{{- if .isWSL -}}
+{{- if .isWSL }}
 alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
 {{- end -}}

@@ -5,7 +5,8 @@
 	newbranchcmf = "!f() { \
 		if [ -z \"$1\" ]; then echo 'Usage: git newbranchcmf <workitem-id>'; return 1; fi; \
 		export REQUESTS_CA_BUNDLE=\"$HOME/.local/share/azure-cli/ca-certificates.crt\"; \
-		TITLE=$(az boards work-item show --id \"$1\" --query 'fields.\"System.Title\"' -o tsv 2>/dev/null); \
+		if [ -z \"$(git remote -v | grep criticalmanufacturing)\" ]; then opts=\"--org https://tfs-product.cmf.criticalmanufacturing.com/Products\"; fi; \
+		TITLE=$(az boards work-item show --id \"$1\" $opts --query 'fields.\"System.Title\"' -o tsv 2>/dev/null); \
 		if [ -z \"$TITLE\" ]; then echo \"Work item not found.\"; return 1; fi; \
 		BASE=$(git rev-parse --abbrev-ref HEAD); \
 		if [ \"$BASE\" != \"dev\" ] && [ \"$BASE\" != \"development\" ]; then PREFIX=\"$(echo $BASE | sed 's/dev/feature/g')/\"; fi; \
