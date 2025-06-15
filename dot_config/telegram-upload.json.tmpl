@@ -1,7 +1,7 @@
 {{- $bwTelegramApiId := "" -}}
 {{- $bwTelegramApiHash := "" -}}
 
-{{- if not .devcontainer -}}
+{{- if (and (ne .chezmoi.os "android") (not .devcontainer)) -}}
 {{-     $bwTelegramFields := (bitwardenFields "item" "8a027f64-1559-49e8-9973-af1701773899") -}}
 {{-     $bwTelegramApiId = $bwTelegramFields.ApiId.value -}}
 {{-     $bwTelegramApiHash = $bwTelegramFields.ApiHash.value -}}
