@@ -103,8 +103,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-eval "$($HOME/.local/bin/mise activate zsh)"
-
 export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
@@ -165,6 +163,9 @@ alias upload='telegram-upload'
 
 unalias gradle
 
+{{ if eq .chezmoi.os "android" -}}
+mise () { proot -b "$PREFIX/etc/resolv.conf:/etc/resolv.conf" -b "$PREFIX/etc/tls:/etc/ssl" mise "$@"; }
+{{- end }}
 gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | grep -i "^location:" | awk '{print $2}' | tr -d '\r')"; }
 gradle() { gradle-or-gradlew "$@" | ccze -A; }
 sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "$USER" --verbose; }
@@ -175,3 +176,5 @@ sv-enable sshd
 keychain id_ubuild01 id_github 2>/dev/null
 . ~/.keychain/localhost-sh
 {{- end }}
+
+eval "$($HOME/.local/bin/mise activate zsh)"
