@@ -130,6 +130,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 alias bumppre='npm install && npm run bump:pre'
 alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp1a-userdebug && make -j$(nproc --ignore=2) systemimage'
+alias bwlock='unset BW_SESSION && bw lock'
+alias bwunlock='export BW_SESSION=$(bw unlock --raw) && bw sync'
 alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
 {{- if eq .chezmoi.hostname "ubuntu-pc" }}
@@ -143,7 +145,6 @@ alias cgit='cd $WIN_HOME/Git'
 alias devcode='mypath="$(wslpath -w $PWD)" && p=$(printf "%s" "$mypath" | hexdump -v -e "/1 \"%02x\"") && code --folder-uri "vscode-remote://dev-container+${p}/workspaces/$(basename $PWD)"'
 {{- end -}}
 {{- end }}
-alias lock='unset BW_SESSION && bw lock'
 alias pubdev='npm install && npm run build:bundle && npm run publish:dev'
 alias pubnext='npm install && npm run build:bundle && npm run publish'
 alias publast='npm install && npm run build:bundle && npm run publish:live'
@@ -153,13 +154,12 @@ alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
 {{- end -}}
 {{- end }}
-alias sshcode='code --remote ssh-remote+ubuild01'
+alias sshcode='code --remote "ssh-remote+ubuild01"'
 {{- if eq .chezmoi.os "android" -}}
 alias tmuxbackup='tar -zcf $HOME/storage/downloads/termux-backup-$(date '"'"'+%Y%m%d%H%M'"'"').tar.gz -C /data/data/com.termux/files ./home ./usr'
 alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /data/data/com.termux/files --recursive-unlink --preserve-permissions'
 {{- end }}
-alias unlock='export BW_SESSION=$(bw unlock --raw) && bw sync'
-alias upload='telegram-upload'
+alias tgup='telegram-upload'
 
 unalias gradle
 
