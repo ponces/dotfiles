@@ -173,8 +173,8 @@ sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --passwor
 {{ if eq .chezmoi.os "android" -}}
 sv-enable code
 sv-enable sshd
-keychain id_ubuild01 id_github 2>/dev/null
-. ~/.keychain/localhost-sh
+eval $(keychain --eval --quiet)
+$HOME/.local/bin/bw_add_sshkeys --quiet
 {{- end }}
 
 eval "$($HOME/.local/bin/mise activate zsh)"
