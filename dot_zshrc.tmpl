@@ -131,6 +131,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 alias bumppre='npm install && npm run bump:pre'
 alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp1a-userdebug && make -j$(nproc --ignore=2) systemimage'
 alias bwlock='unset BW_SESSION && bw lock'
+alias bwlogin='export BW_SESSION=$(bw login --raw)'
 alias bwunlock='export BW_SESSION=$(bw unlock --raw) && bw sync'
 alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
