@@ -103,6 +103,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_RUNTIME_DIR="$HOME/.local/run"
+
 export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
@@ -118,21 +123,21 @@ export PLAYGROUND_DIR="$HOME/.local/share/playground"
 {{- if eq .chezmoi.hostname "ubuntu-pc" }}
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- end }}
+{{- if eq .chezmoi.os "android" }}
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw/ssh-agent-socket"
+{{- end }}
 {{- with .windows -}}
 {{- if .isWSL }}
 export WIN_HOME_RAW="$(cmd.exe /c "<nul set /p=%UserProfile%" 2>/dev/null)"
 export WIN_HOME="$(wslpath $WIN_HOME_RAW)"
 {{- end -}}
 {{- end }}
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
 
 alias bumppre='npm install && npm run bump:pre'
 alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp1a-userdebug && make -j$(nproc --ignore=2) systemimage'
-alias bwlock='unset BW_SESSION && bw lock'
-alias bwlogin='export BW_SESSION=$(bw login --raw)'
-alias bwunlock='export BW_SESSION=$(bw unlock --raw) && bw sync'
+alias bwlock='rbw lock'
+alias bwlogin='rbw login && rbw sync'
+alias bwunlock='rbw unlock && rbw sync'
 alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
 {{- if eq .chezmoi.hostname "ubuntu-pc" }}
@@ -174,8 +179,9 @@ sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --passwor
 {{ if eq .chezmoi.os "android" -}}
 sv-enable code
 sv-enable sshd
-eval $(keychain --eval --quiet)
-$HOME/.local/bin/bw_add_sshkeys --quiet
+rbw config set email {{ .git.email | quote }}
+rbw unlocked 2>/dev/null || rbw login
+rbw unlocked 2>/dev/null || rbw unlock
 {{- end }}
 
 eval "$($HOME/.local/bin/mise activate zsh)"
