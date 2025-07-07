@@ -10,10 +10,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 {{- if not $devcontainer -}}
 {{-     $gitName = promptStringOnce . "name" "What is your Git name" "Alberto Ponces" -}}
 {{-     $gitEmail = promptStringOnce . "email" "What is your Git email" "ponces26@gmail.com" -}}
-{{-     $cmfEnabled = and (lookPath "bw" | isExecutable) (promptBoolOnce . "enabled" "Do you want to initialise configuration for CMF" false) -}}
+{{-     $cmfEnabled = and (lookPath "rbw" | isExecutable) (promptBoolOnce . "enabled" "Do you want to initialise configuration for CMF" false) -}}
 {{-     if $cmfEnabled -}}
-{{-         $bwIdentityFields := (bitwardenFields "item" "6fb5739a-e6a5-4bcb-9db2-b213007907fc") }}
-{{-         $gitEmail = $bwIdentityFields.WorkEmail.value -}}
+{{-         $rbwIdentityFields := (rbwFields "item" "6fb5739a-e6a5-4bcb-9db2-b213007907fc") }}
+{{-         $gitEmail = $rbwIdentityFields.WorkEmail.value -}}
 {{-     end -}}
 {{- else -}}
 {{-     $gitName = "Alberto Ponces" -}}

@@ -1,10 +1,10 @@
-{{- $bwTelegramApiId := "" -}}
-{{- $bwTelegramApiHash := "" -}}
+{{- $rbwTelegramApiId := "" -}}
+{{- $rbwTelegramApiHash := "" -}}
 
 {{- if (and (ne .chezmoi.os "android") (not .devcontainer)) -}}
-{{-     $bwTelegramFields := (bitwardenFields "item" "8a027f64-1559-49e8-9973-af1701773899") -}}
-{{-     $bwTelegramApiId = $bwTelegramFields.ApiId.value -}}
-{{-     $bwTelegramApiHash = $bwTelegramFields.ApiHash.value -}}
+{{-     $rbwTelegramFields := (rbwFields "item" "8a027f64-1559-49e8-9973-af1701773899") -}}
+{{-     $rbwTelegramApiId = $rbwTelegramFields.ApiId.value -}}
+{{-     $rbwTelegramApiHash = $rbwTelegramFields.ApiHash.value -}}
 {{- end -}}
 
-{"api_id": {{ $bwTelegramApiId | quote }}, "api_hash": {{ $bwTelegramApiHash | quote }}}
+{"api_id": {{ $rbwTelegramApiId | quote }}, "api_hash": {{ $rbwTelegramApiHash | quote }}}
