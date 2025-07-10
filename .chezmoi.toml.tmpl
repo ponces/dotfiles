@@ -12,7 +12,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 {{-     $gitEmail = promptStringOnce . "email" "What is your Git email" "ponces26@gmail.com" -}}
 {{-     $cmfEnabled = and (lookPath "rbw" | isExecutable) (promptBoolOnce . "enabled" "Do you want to initialise configuration for CMF" false) -}}
 {{-     if $cmfEnabled -}}
-{{-         $rbwIdentityFields := (rbwFields "item" "6fb5739a-e6a5-4bcb-9db2-b213007907fc") }}
+{{-         $rbwIdentityFields := (rbwFields "6fb5739a-e6a5-4bcb-9db2-b213007907fc") }}
 {{-         $gitEmail = $rbwIdentityFields.WorkEmail.value -}}
 {{-     end -}}
 {{- else -}}
