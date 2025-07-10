@@ -46,6 +46,11 @@ if ! command -v gh >/dev/null; then
     curl -sfSL https://go.ponces.xyz/github | bash
 fi
 
+echo "Installing azure CLI"
+if ! command -v az >/dev/null; then
+    curl -sfSL https://go.ponces.xyz/azure | bash
+fi
+
 echo "Installing chezmoi"
 if ! command -v chezmoi >/dev/null; then
     curl -sfSL https://go.ponces.xyz/chezmoi | bash
