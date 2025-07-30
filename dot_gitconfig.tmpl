@@ -18,11 +18,11 @@
 		fi; \
 		BASE=\"$(git rev-parse --abbrev-ref HEAD)\"; \
 		if echo \"$BASE\" | grep -q '/'; then \
+			PREFIX=\"$(echo $BASE | sed 's/dev/feature/g')/\"; \
 			BASE=\"dev\"; \
-			PREFIX=\"$(echo $BASE | sed 's/dev/feature\\//g')/\"; \
 		elif echo \"$BASE\" | grep -q '-'; then \
-			BASE=\"$(echo $BASE | cut -d'-' -f1)\"; \
 			PREFIX=\"\"; \
+			BASE=\"$(echo $BASE | cut -d'-' -f1)\"; \
 		fi; \
 		SANITIZED=$(echo \"$TITLE\" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g'); \
 		git checkout -b \"${PREFIX}${BASE}-$1-$SANITIZED\"; \
