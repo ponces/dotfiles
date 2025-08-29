@@ -126,6 +126,8 @@ export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- if eq .chezmoi.os "android" }}
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw/ssh-agent-socket"
 {{- end }}
+export TERMV_AUTO_UPDATE="false"
+export TERMV_FULL_SCREEN="true"
 {{- with .windows -}}
 {{- if .isWSL }}
 export WIN_HOME_RAW="$(cmd.exe /c "<nul set /p=%UserProfile%" 2>/dev/null)"
