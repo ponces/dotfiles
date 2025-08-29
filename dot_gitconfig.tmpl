@@ -32,8 +32,10 @@
 	ui = auto
 [core]
 	editor = nano
-{{- if .cmf.enabled }}
+{{- with .windows -}}
+{{- if .isWSL }}
 	sshCommand = "ssh.exe"
+{{- end -}}
 {{- end }}
 [credential]
 	helper = store
