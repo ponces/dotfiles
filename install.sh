@@ -18,6 +18,10 @@ echo "Installing required packages"
 export DEBIAN_FRONTEND=noninteractive
 piu install -y bash curl ccze jq less tar unzip zsh
 
+if [ ! -z "$WSL_DISTRO_NAME" ]; then
+    piu install -y wslu xdg-utils
+fi
+
 echo "Installing oh-my-zsh"
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
 	curl -sfSL https://go.ponces.xyz/zsh | bash

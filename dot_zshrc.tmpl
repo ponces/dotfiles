@@ -112,6 +112,11 @@ export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export ANDROID_TOOLCHAIN="$ANDROID_HOME/ndk/27.1.12297006/toolchains/llvm/prebuilt/linux-x86_64"
+{{- with .windows -}}
+{{- if .isWSL }}
+export BROWSER="wslview"
+{{- end -}}
+{{- end }}
 {{- if eq .chezmoi.hostname "ubuild01" }}
 export FILES_DIR="$HOME/.local/share/playground/docker/filebrowser/files"
 {{- end }}
