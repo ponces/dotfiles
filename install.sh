@@ -16,7 +16,7 @@ curl -sfSL https://go.ponces.xyz/piu | bash
 
 echo "Installing required packages"
 export DEBIAN_FRONTEND=noninteractive
-piu install -y bash curl ccze jq less tar unzip zsh
+piu install -y bash binutils curl ccze dos2unix file git jq less make nano sudo tar tree unzip wget which zip zsh
 
 if [ ! -z "$WSL_DISTRO_NAME" ]; then
     piu install -y wslu xdg-utils
