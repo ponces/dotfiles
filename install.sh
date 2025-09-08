@@ -12,7 +12,7 @@ mkdir -p $HOME/.local/etc
 mkdir -p $HOME/.local/share
 
 echo "Installing piu"
-curl -sfSL https://go.ponces.xyz/piu | bash
+curl -sfSL https://go.ponces.dev/piu | bash
 
 echo "Installing required packages"
 export DEBIAN_FRONTEND=noninteractive
@@ -24,7 +24,7 @@ fi
 
 echo "Installing oh-my-zsh"
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-	curl -sfSL https://go.ponces.xyz/zsh | bash
+	curl -sfSL https://go.ponces.dev/zsh | bash
 fi
 
 echo "Installing zsh plugins"
@@ -37,27 +37,27 @@ fi
 
 echo "Installing mise"
 if ! command -v mise >/dev/null; then
-    curl -sfSL https://go.ponces.xyz/mise | bash
+    curl -sfSL https://go.ponces.dev/mise | bash
 fi
 
 echo "Installing bitwarden CLI"
 if ! command -v rbw >/dev/null; then
-    curl -sfSL https://go.ponces.xyz/rbw | bash
+    curl -sfSL https://go.ponces.dev/rbw | bash
 fi
 
 echo "Installing github CLI"
 if ! command -v gh >/dev/null; then
-    curl -sfSL https://go.ponces.xyz/github | bash
+    curl -sfSL https://go.ponces.dev/github | bash
 fi
 
 echo "Installing azure CLI"
 if ! command -v az >/dev/null; then
-    curl -sfSL https://go.ponces.xyz/azure | bash
+    curl -sfSL https://go.ponces.dev/azure | bash
 fi
 
 echo "Installing chezmoi"
 if ! command -v chezmoi >/dev/null; then
-    curl -sfSL https://go.ponces.xyz/chezmoi | bash
+    curl -sfSL https://go.ponces.dev/chezmoi | bash
 fi
 
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188

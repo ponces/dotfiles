@@ -2,12 +2,12 @@
 
 ## Install and setup Bitwarden
 ```sh
-curl -sfSL https://go.ponces.xyz/bitwarden | bash
+curl -sfSL https://go.ponces.dev/bitwarden | bash
 ```
 
 ## Install chezmoi and dotfiles
 ```sh
-curl -sfSL https://go.ponces.xyz/chezmoi | bash
+curl -sfSL https://go.ponces.dev/chezmoi | bash
 ```
 
 ## Install dotfiles
