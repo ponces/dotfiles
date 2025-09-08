@@ -16,7 +16,11 @@ curl -sfSL https://go.ponces.dev/piu | bash
 
 echo "Installing required packages"
 export DEBIAN_FRONTEND=noninteractive
-piu install -y bash binutils coreutils curl ccze dos2unix file git jq less make nano sudo tar tree unzip wget which zip zsh
+piu install -y bash binutils coreutils curl ccze dos2unix file git jq less make nano sudo tar tree unzip wget zip zsh
+
+if [ ! -z "$TERMUX_VERSION" ]; then
+    piu install -y which
+fi
 
 if [ ! -z "$WSL_DISTRO_NAME" ]; then
     piu install -y wslu xdg-utils
