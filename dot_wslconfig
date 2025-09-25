@@ -1,7 +1,8 @@
 [wsl2]
 memory = 22GB
 processors = 12
-localhostForwarding = true
+#localhostForwarding = true
+networkingMode = mirrored
 
 [experimental]
 sparseVhd = true
