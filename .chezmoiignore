@@ -1,6 +1,7 @@
-README.md
-LICENSE
+.github/
 install.sh
+LICENSE
+README.md
 
 {{ if eq .chezmoi.os "windows" }}
 .bash_logout
