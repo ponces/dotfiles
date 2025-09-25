@@ -2,6 +2,8 @@
 
 set -e
 
+export PATH="$HOME/.local/bin:$PATH"
+
 curl -sfSL https://go.ponces.dev/base | bash
 
 if [ ! -z "$WSL_DISTRO_NAME" ]; then
@@ -10,7 +12,7 @@ fi
 
 echo "Installing oh-my-zsh"
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-	curl -sfSL https://go.ponces.dev/zsh | bash
+    curl -sfSL https://go.ponces.dev/zsh | bash
 fi
 
 echo "Installing mise"
