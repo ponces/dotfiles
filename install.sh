@@ -42,4 +42,4 @@ fi
 
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 set -- init --apply --source="${script_dir}"
-exec "$chezmoi" "$@"
+exec chezmoi "$@"
