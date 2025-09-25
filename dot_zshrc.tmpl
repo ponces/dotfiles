@@ -140,8 +140,7 @@ export TERMV_AUTO_UPDATE="false"
 export TERMV_FULL_SCREEN="true"
 {{- with .windows -}}
 {{- if .isWSL }}
-export WIN_HOME_RAW="$(cmd.exe /c "<nul set /p=%UserProfile%" 2>/dev/null)"
-export WIN_HOME="$(wslpath $WIN_HOME_RAW)"
+export WIN_HOME="$(wslpath -u $(wslvar USERPROFILE))"
 {{- end -}}
 {{- end }}
 
