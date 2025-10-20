@@ -176,7 +176,6 @@ alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
 {{- end -}}
 {{- end }}
-alias sshcode='code --remote "ssh-remote+ubuild01"'
 {{- if eq .chezmoi.os "android" -}}
 alias tmuxbackup='tar -zcf $HOME/storage/downloads/termux-backup-$(date '"'"'+%Y%m%d%H%M'"'"').tar.gz -C /data/data/com.termux/files ./home ./usr'
 alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /data/data/com.termux/files --recursive-unlink --preserve-permissions'
@@ -192,6 +191,7 @@ gradle() { gradle-or-gradlew "$@" | logalize; }
 mise () { proot -b "$PREFIX/etc/resolv.conf:/etc/resolv.conf" -b "$PREFIX/etc/tls:/etc/ssl" mise "$@"; }
 {{- end }}
 sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "$USER" --verbose; }
+sshcode() { if [[ "$1" == *"@"* ]]; then host="$1"; target="$2"; else host="ponces@ubuild01.ponces.dev"; target="$1"; fi; code --folder-uri "vscode-remote://ssh-remote+$host/$target"; }
 
 {{ if eq .chezmoi.os "android" -}}
 sv-enable code
