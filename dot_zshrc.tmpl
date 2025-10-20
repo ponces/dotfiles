@@ -183,8 +183,8 @@ alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /d
 
 unalias gradle
 
-docker() { docker "$@" | logalize; }
-dotnet() { dotnet "$@" | logalize; }
+#docker() { docker "$@" | logalize; }
+#dotnet() { dotnet "$@" | logalize; }
 gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | grep -i "^location:" | awk '{print $2}' | tr -d '\r')"; }
 gradle() { gradle-or-gradlew "$@" | logalize; }
 {{- if eq .chezmoi.os "android" }}
