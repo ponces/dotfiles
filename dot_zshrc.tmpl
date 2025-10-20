@@ -110,10 +110,15 @@ export XDG_RUNTIME_DIR="$HOME/.local/run"
 
 export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_AVD_HOME="$HOME/.android/avd"
+{{- if eq .chezmoi.os "android" }}
+export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.2"
+{{- else }}
 export ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools/36.0.0"
+{{- end }}
 export ANDROID_EMULATOR_HOME="$HOME/.android"
+export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/28.2.13676358"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
-export ANDROID_TOOLCHAIN="$ANDROID_HOME/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64"
+export ANDROID_TOOLCHAIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64"
 export ANDROID_USER_HOME="$HOME/.android"
 {{- with .windows -}}
 {{- if .isWSL }}
