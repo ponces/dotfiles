@@ -8,7 +8,7 @@
 			return 1; \
 		fi; \
 		export REQUESTS_CA_BUNDLE=\"$HOME/.local/share/azure-cli/ca-certificates.crt\"; \
-		if [ -z \"$(git remote -v | grep criticalmanufacturing)\" ]; then \
+		if [ ! -z \"$(git remote -v | grep criticalmanufacturing)\" ]; then \
 			opts=\"--org https://tfs-product.cmf.criticalmanufacturing.com/Products\"; \
 		fi; \
 		TITLE=$(az boards work-item show --id \"$1\" $opts --query 'fields.\"System.Title\"' -o tsv 2>/dev/null); \
