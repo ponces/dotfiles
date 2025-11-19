@@ -135,7 +135,7 @@ export GITHUB_API_TOKEN="$GH_TOKEN"
 export LD_LIBRARY_PATH="$HOME/.local/lib64:$HOME/.local/lib:$LD_LIBRARY_PATH"
 export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$DOTNET_TOOLS_PATH:$PATH"
 export PLAYGROUND_DIR="$HOME/.local/share/playground"
-{{- if eq .chezmoi.hostname "ubuntu-pc" }}
+{{- if (or (eq .chezmoi.hostname "ubuntu-pc") (eq .chezmoi.hostname "fedora")) }}
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- end }}
 {{- if eq .chezmoi.os "android" }}
@@ -156,7 +156,7 @@ alias bwlogin='rbw login && rbw sync'
 alias bwunlock='rbw unlock && rbw sync'
 alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
-{{- if eq .chezmoi.hostname "ubuntu-pc" }}
+{{- if (or (eq .chezmoi.hostname "ubuntu-pc") (eq .chezmoi.hostname "fedora")) }}
 alias cdown='cd $HOME/Downloads'
 alias cgit='cd $HOME/Git'
 {{- end }}
