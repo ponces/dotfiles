@@ -199,6 +199,7 @@ sv-enable sshd
 rbw config set email {{ .git.email | quote }}
 rbw unlocked 2>/dev/null || rbw login
 rbw unlocked 2>/dev/null || rbw unlock
+rbw get Termux > $HOME/.ssh/authorized_keys
 {{- end }}
 
 eval "$($HOME/.local/bin/mise activate zsh)"
