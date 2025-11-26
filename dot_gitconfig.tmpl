@@ -1,10 +1,13 @@
 [alias]
+	alias = "!git config --get-regexp '^alias\\.' | sed 's/^alias\\.//;s/ / = /'"
+	amend = commit --amend --no-edit
 	pushfwl = push --force-with-lease
-	newbranch = "!f() { git checkout -b $1; }; f"
+	co = checkout
+	cob = checkout -b
 {{- if .cmf.enabled }}
-	newbranchcmf = "!f() { \
+	cobc = "!f() { \
 		if [ -z \"$1\" ]; then \
-			echo 'Usage: git newbranchcmf <workitem-id>'; \
+			echo 'Usage: git cobc <workitem-id>'; \
 			return 1; \
 		fi; \
 		export REQUESTS_CA_BUNDLE=\"$HOME/.local/share/azure-cli/ca-certificates.crt\"; \
@@ -28,6 +31,17 @@
 		git checkout -b \"${PREFIX}${BASE}-$1-$SANITIZED\"; \
 	}; f"
 {{- end }}
+	discard = reset HEAD --hard
+	fixup = "!f() { git log --oneline --no-merges | fzf | awk '{print $1}' | xargs git commit --fixup; }; f"
+	root = rev-parse --show-toplevel
+	st = status
+	squash = "!f() { git log --oneline --no-merges | fzf | awk '{print $1}' | xargs git commit --squash; }; f"
+	sub = submodule update --init --recursive
+	lg = log --color --graph --pretty=format:'%C(auto)%h%d %s %C(black)%C(bold blue)%an %C(bold green)(%cr)' --abbrev-commit
+	ri = rebase --interactive --autosquash
+	uncommit = reset --soft HEAD^
+	unstage = reset HEAD --
+	wip = "!f() { git add . && git commit -m 'Work in progress'; }; f"
 [color]
 	ui = auto
 [core]
