@@ -191,7 +191,7 @@ gradle() { gradle-or-gradlew "$@" | logalize; }
 mise () { proot -b "$PREFIX/etc/resolv.conf:/etc/resolv.conf" -b "$PREFIX/etc/tls:/etc/ssl" mise "$@"; }
 {{- end }}
 sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "$USER" --verbose; }
-sshcode() { if [[ "$1" == *"@"* ]]; then host="$1"; target="$2"; else host="ponces@ubuild01.ponces.dev"; target="$1"; fi; code --folder-uri "vscode-remote://ssh-remote+$host/$target"; }
+sshcode() { if [[ "$1" == *"@"* ]]; then host="$1"; target="$2"; else host="root@ubuild01.ponces.dev"; target="$1"; fi; code --folder-uri "vscode-remote://ssh-remote+$host/$target"; }
 
 {{ if eq .chezmoi.os "android" -}}
 sv-enable code
