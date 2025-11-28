@@ -1,0 +1,11 @@
+mise activate pwsh | Out-String | Invoke-Expression
+
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/robbyrussell.omp.json" | Invoke-Expression
+Import-Module "$env:APPDATA/posh-git/src/posh-git.psd1"
+
+function cdown() { cd $env:USERPROFILE\Downloads }
+function cgit() { cd $env:USERPROFILE\Git }
+function md5sum { Get-FileHash -Path $args[0] -Algorithm MD5 | Select-Object -ExpandProperty Hash }
+function sha1sum { Get-FileHash -Path $args[0] -Algorithm SHA1 | Select-Object -ExpandProperty Hash }
+function sha256sum { Get-FileHash -Path $args[0] -Algorithm SHA256 | Select-Object -ExpandProperty Hash }
+function sshcode() { code --remote ssh-remote+root@ubuild01.ponces.dev @Args }
