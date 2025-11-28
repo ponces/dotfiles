@@ -11,4 +11,5 @@ README.md
 .zshrc
 {{ else if eq .chezmoi.os "linux" }}
 .wslconfig
+Documents/
 {{ end }}
