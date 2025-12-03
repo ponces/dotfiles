@@ -41,7 +41,7 @@
 	ri = rebase --interactive --autosquash
 	uncommit = reset --soft HEAD^
 	unstage = reset HEAD --
-	wip = "!f() { git add . && git commit -m 'Work in progress'; }; f"
+	wip = "!f() { git add . && git commit -m wip -n; }; f"
 [color]
 	ui = auto
 [core]
