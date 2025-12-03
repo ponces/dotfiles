@@ -202,4 +202,6 @@ rbw unlocked 2>/dev/null || rbw unlock
 rbw get Termux > $HOME/.ssh/authorized_keys
 {{- end }}
 
+{{ if stat (joinPath .chezmoi.homeDir ".config" "mise") -}}
 eval "$($HOME/.local/bin/mise activate zsh)"
+{{- end }}
