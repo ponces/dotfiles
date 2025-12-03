@@ -170,6 +170,7 @@ alias devcode='mypath="$(wslpath -w $PWD)" && p=$(printf "%s" "$mypath" | hexdum
 alias pubdev='npm install && npm run build:bundle && npm run publish:dev'
 alias pubnext='npm install && npm run build:bundle && npm run publish'
 alias publast='npm install && npm run build:bundle && npm run publish:live'
+alias scrcpy='$HOME/.local/bin/scrcpy --new-display=1920x1080/180 --max-fps=60 --keyboard=uhid --stay-awake'
 {{- with .windows -}}
 {{- if .isWSL }}
 alias ssh='ssh.exe'
