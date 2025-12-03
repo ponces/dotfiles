@@ -135,7 +135,7 @@ export GITHUB_API_TOKEN="$GH_TOKEN"
 export LD_LIBRARY_PATH="$HOME/.local/lib64:$HOME/.local/lib:$LD_LIBRARY_PATH"
 export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$DOTNET_TOOLS_PATH:$PATH"
 export PLAYGROUND_DIR="$HOME/.local/share/playground"
-{{- if (or (eq .chezmoi.hostname "ubuntu-pc") (eq .chezmoi.hostname "fedora")) }}
+{{- if (or (eq .chezmoi.hostname "ubuntu") (eq .chezmoi.hostname "fedora")) }}
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- end }}
 {{- if eq .chezmoi.os "android" }}
@@ -150,13 +150,13 @@ export WIN_HOME="$(wslpath -u $(wslvar USERPROFILE))"
 {{- end }}
 
 alias bumppre='npm install && npm run bump:pre'
-alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp1a-userdebug && make -j$(nproc --ignore=2) systemimage'
+alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) systemimage'
 alias bwlock='rbw lock'
 alias bwlogin='rbw login && rbw sync'
 alias bwunlock='rbw unlock && rbw sync'
 alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
-{{- if (or (eq .chezmoi.hostname "ubuntu-pc") (eq .chezmoi.hostname "fedora")) }}
+{{- if (or (eq .chezmoi.hostname "ubuntu") (eq .chezmoi.hostname "fedora")) }}
 alias cdown='cd $HOME/Downloads'
 alias cgit='cd $HOME/Git'
 {{- end }}
@@ -184,8 +184,6 @@ alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /d
 
 unalias gradle
 
-#docker() { docker "$@" | logalize; }
-#dotnet() { dotnet "$@" | logalize; }
 gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | grep -i "^location:" | awk '{print $2}' | tr -d '\r')"; }
 gradle() { gradle-or-gradlew "$@" | logalize; }
 jwtd() { jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1"; }
