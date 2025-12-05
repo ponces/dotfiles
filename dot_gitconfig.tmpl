@@ -49,6 +49,8 @@
 {{- with .windows -}}
 {{- if .isWSL }}
 	sshCommand = "ssh.exe"
+{{- else }}
+	sshCommand = "C:/Windows/System32/OpenSSH/ssh.exe"
 {{- end -}}
 {{- end }}
 [credential]
