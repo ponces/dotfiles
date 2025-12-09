@@ -1,8 +1,9 @@
 [wsl2]
 memory = 30GB
 processors = 14
-#localhostForwarding = true
 networkingMode = mirrored
+kernel = C:\\Users\\a-ponces\\AppData\\Roaming\\xanmod-kernel-WSL2\\bzImage-x64v3
+kernelModules = C:\\Users\\a-ponces\\AppData\\Roaming\\xanmod-kernel-WSL2\\bzImage-x64v3-addons.vhdx
 
 [experimental]
 sparseVhd = true
