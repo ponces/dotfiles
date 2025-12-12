@@ -1,7 +1,7 @@
 {{- $devcontainer := or (env "CODESPACES") (env "REMOTE_CONTAINERS") -}}
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-{{- $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") (not $devcontainer) -}}
+{{- $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "wsl") (not $devcontainer) -}}
 
 {{- $gitName := "" -}}
 {{- $gitEmail := "" -}}
