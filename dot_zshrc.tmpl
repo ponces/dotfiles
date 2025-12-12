@@ -151,7 +151,6 @@ export WIN_HOME="$(wslpath -u $(wslvar USERPROFILE))"
 {{- end }}
 
 alias bumppre='npm install && npm run bump:pre'
-alias buildroid='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) systemimage'
 alias bwlock='rbw lock'
 alias bwlogin='rbw login && rbw sync'
 alias bwunlock='rbw unlock && rbw sync'
@@ -159,7 +158,7 @@ alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
 {{- if (or (eq .chezmoi.hostname "ubuntu") (eq .chezmoi.hostname "fedora")) }}
 alias cdown='cd $HOME/Downloads'
-alias cgit='cd $HOME/Git'
+alias cdgit='cd $HOME/Git'
 {{- end }}
 {{- with .windows -}}
 {{- if .isWSL }}
@@ -168,6 +167,8 @@ alias cgit='cd $WIN_HOME/Git'
 alias devcode='mypath="$(wslpath -w $PWD)" && p=$(printf "%s" "$mypath" | hexdump -v -e "/1 \"%02x\"") && code --folder-uri "vscode-remote://dev-container+${p}/workspaces/$(basename $PWD)"'
 {{- end -}}
 {{- end }}
+alias gsib='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) systemimage'
+alias gsic='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) installclean'
 alias pubdev='npm install && npm run build:bundle && npm run publish:dev'
 alias pubnext='npm install && npm run build:bundle && npm run publish'
 alias publast='npm install && npm run build:bundle && npm run publish:live'
