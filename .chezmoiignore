@@ -9,7 +9,7 @@ README.md
 .profile
 .screenrc
 .zshrc
-{{ else if eq .chezmoi.os "linux" }}
+{{ else if or (eq .chezmoi.os "linux") (eq .chezmoi.os "android") }}
 .wslconfig
 Documents/
 {{ end }}
