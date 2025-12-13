@@ -46,12 +46,11 @@
 	ui = auto
 [core]
 	editor = nano
-{{- with .windows -}}
-{{- if .isWSL }}
+{{- if .windows.isWSL }}
 	sshCommand = "ssh.exe"
-{{- else }}
+{{- end }}
+{{- if eq .chezmoi.os "windows" }}
 	sshCommand = "C:/Windows/System32/OpenSSH/ssh.exe"
-{{- end -}}
 {{- end }}
 [credential]
 	helper = store

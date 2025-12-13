@@ -21,9 +21,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 {{-     $cmfEnabled = false -}}
 {{- end }}
 
-[data]
-    devcontainer = {{ $devcontainer | toToml }}
-
 [data.git]
     name = {{ $gitName | quote }}
     email = {{ $gitEmail | quote }}

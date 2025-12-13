@@ -121,10 +121,8 @@ export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/28.2.13676358"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export ANDROID_TOOLCHAIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64"
 export ANDROID_USER_HOME="$HOME/.android"
-{{- with .windows -}}
-{{- if .isWSL }}
+{{- if .windows.isWSL }}
 export BROWSER="wslview"
-{{- end -}}
 {{- end }}
 export DOTNET_TOOLS_PATH="$HOME/.dotnet/tools"
 {{- if eq .chezmoi.hostname "ubuild01" }}
@@ -144,10 +142,8 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw/ssh-agent-socket"
 {{- end }}
 export TERMV_AUTO_UPDATE="false"
 export TERMV_FULL_SCREEN="true"
-{{- with .windows -}}
-{{- if .isWSL }}
+{{- if .windows.isWSL }}
 export WIN_HOME="$(wslpath -u $(wslvar USERPROFILE))"
-{{- end -}}
 {{- end }}
 
 alias bumppre='npm install && npm run bump:pre'
@@ -160,12 +156,10 @@ alias cdtop='cd $HOME/ponces'
 alias cdown='cd $HOME/Downloads'
 alias cdgit='cd $HOME/Git'
 {{- end }}
-{{- with .windows -}}
-{{- if .isWSL }}
+{{- if .windows.isWSL }}
 alias cdown='cd $WIN_HOME/Downloads'
 alias cgit='cd $WIN_HOME/Git'
 alias devcode='mypath="$(wslpath -w $PWD)" && p=$(printf "%s" "$mypath" | hexdump -v -e "/1 \"%02x\"") && code --folder-uri "vscode-remote://dev-container+${p}/workspaces/$(basename $PWD)"'
-{{- end -}}
 {{- end }}
 alias gsib='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) systemimage'
 alias gsic='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) installclean'
@@ -173,11 +167,9 @@ alias pubdev='npm install && npm run build:bundle && npm run publish:dev'
 alias pubnext='npm install && npm run build:bundle && npm run publish'
 alias publast='npm install && npm run build:bundle && npm run publish:live'
 alias scrcpy='$HOME/.local/bin/scrcpy --new-display=1920x1080/180 --max-fps=60 --keyboard=uhid --stay-awake'
-{{- with .windows -}}
-{{- if .isWSL }}
+{{- if .windows.isWSL }}
 alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
-{{- end -}}
 {{- end }}
 {{- if eq .chezmoi.os "android" -}}
 alias tmuxbackup='tar -zcf $HOME/storage/downloads/termux-backup-$(date '"'"'+%Y%m%d%H%M'"'"').tar.gz -C /data/data/com.termux/files ./home ./usr'
