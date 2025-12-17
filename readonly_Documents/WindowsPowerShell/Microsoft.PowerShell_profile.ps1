@@ -1,5 +1,5 @@
-﻿oh-my-posh init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/robbyrussell.omp.json" | Invoke-Expression
-Import-Module "$env:APPDATA/posh-git/src/posh-git.psd1"
+﻿oh-my-posh init pwsh --config "$env:APPDATA/oh-my-posh/themes/robbyrussell.omp.json" | Invoke-Expression
+Import-Module "$env:APPDATA/oh-my-posh/modules/posh-git/src/posh-git.psd1"
 
 mise activate pwsh | Out-String | Invoke-Expression
 
