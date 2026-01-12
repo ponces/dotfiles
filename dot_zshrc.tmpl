@@ -147,9 +147,6 @@ export WIN_HOME="$(wslpath -u $(wslvar USERPROFILE))"
 {{- end }}
 
 alias bumppre='npm install && npm run bump:pre'
-alias bwlock='rbw lock'
-alias bwlogin='rbw login && rbw sync'
-alias bwunlock='rbw unlock && rbw sync'
 alias cddev='cd $HOME/ponces/device/ponces/gsi'
 alias cdtop='cd $HOME/ponces'
 {{- if (or (eq .chezmoi.hostname "ubuntu") (eq .chezmoi.hostname "fedora")) }}
@@ -158,8 +155,7 @@ alias cdgit='cd $HOME/Git'
 {{- end }}
 {{- if .windows.isWSL }}
 alias cdown='cd $WIN_HOME/Downloads'
-alias cgit='cd $WIN_HOME/Git'
-alias devcode='mypath="$(wslpath -w $PWD)" && p=$(printf "%s" "$mypath" | hexdump -v -e "/1 \"%02x\"") && code --folder-uri "vscode-remote://dev-container+${p}/workspaces/$(basename $PWD)"'
+alias cdgit='cd $WIN_HOME/Git'
 {{- end }}
 alias gsib='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) systemimage'
 alias gsic='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) installclean'
@@ -178,6 +174,9 @@ alias tmuxrestore='tar -zxf $HOME/storage/downloads/termux-backup-*.tar.gz -C /d
 
 unalias gradle
 
+{{- if .windows.isWSL }}
+devcode() { if [ -f "$1" ]; then target="$1"; else target="$PWD"; fi; targetw="$(wslpath -w $target | sed 's/\\/\\\\/g')"; p=$(echo "$targetw" | hexdump -v -e "/1 \"%02x\"") && code --folder-uri "vscode-remote://dev-container+${p}/workspaces/$(basename $target)"; }
+{{- end }}
 gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | grep -i "^location:" | awk '{print $2}' | tr -d '\r')"; }
 gradle() { gradle-or-gradlew "$@" | logalize; }
 jwtd() { jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1"; }
