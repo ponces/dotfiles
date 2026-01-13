@@ -123,6 +123,9 @@ export ANDROID_TOOLCHAIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_6
 export ANDROID_USER_HOME="$HOME/.android"
 {{- if .windows.isWSL }}
 export BROWSER="wslview"
+export BUILD_JOBS="$(nproc --ignore=6)"
+{{- else }}
+export BUILD_JOBS="$(nproc --ignore=2)"
 {{- end }}
 export DOTNET_TOOLS_PATH="$HOME/.dotnet/tools"
 {{- if eq .chezmoi.hostname "ubuild01" }}
