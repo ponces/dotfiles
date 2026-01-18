@@ -150,18 +150,20 @@ export WIN_HOME="$(wslpath -u $(wslvar USERPROFILE))"
 {{- end }}
 
 alias bumppre='npm install && npm run bump:pre'
-alias cddev='cd $HOME/ponces/device/ponces/gsi'
-alias cdtop='cd $HOME/ponces'
+alias cdev='cd $HOME/ponces/device/ponces/gsi'
+alias ctop='cd $HOME/ponces'
 {{- if (or (eq .chezmoi.hostname "ubuntu") (eq .chezmoi.hostname "fedora")) }}
 alias cdown='cd $HOME/Downloads'
 alias cdgit='cd $HOME/Git'
 {{- end }}
 {{- if .windows.isWSL }}
 alias cdown='cd $WIN_HOME/Downloads'
-alias cdgit='cd $WIN_HOME/Git'
+alias cgit='cd $WIN_HOME/Git'
 {{- end }}
-alias gsib='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) systemimage'
-alias gsic='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$(nproc --ignore=2) installclean'
+alias gsib='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$BUILD_JOBS systemimage'
+alias gsic='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$BUILD_JOBS installclean'
+alias gsir='repo forall -c "git checkout .; git reset --hard; git am --abort; git merge --abort; git revert --abort"'
+alias gsis='repo sync -c --force-sync --no-clone-bundle --no-tags -j$BUILD_JOBS'
 alias pubdev='npm install && npm run build:bundle && npm run publish:dev'
 alias pubnext='npm install && npm run build:bundle && npm run publish'
 alias publast='npm install && npm run build:bundle && npm run publish:live'
