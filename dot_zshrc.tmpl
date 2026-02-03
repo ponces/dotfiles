@@ -160,6 +160,9 @@ alias cdgit='cd $HOME/Git'
 alias cdown='cd $WIN_HOME/Downloads'
 alias cgit='cd $WIN_HOME/Git'
 {{- end }}
+{{- if eq .chezmoi.os "android" }}
+alias cdown='cd $HOME/storage/downloads'
+{{- end }}
 alias gsib='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$BUILD_JOBS systemimage'
 alias gsic='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$BUILD_JOBS installclean'
 alias gsir='repo forall -c "git checkout .; git reset --hard; git am --abort; git merge --abort; git revert --abort"'
