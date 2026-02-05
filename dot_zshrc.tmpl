@@ -203,6 +203,10 @@ rbw unlocked 2>/dev/null || rbw unlock
 rbw get Termux > $HOME/.ssh/authorized_keys
 {{- end }}
 
+{{- if .cmf.enabled -}}
+grep -q "personal access token =" $HOME/.azure/azuredevops/personalAccessTokens || az devops login
+{{- end }}
+
 {{ if stat (joinPath .chezmoi.homeDir ".config" "mise") -}}
 eval "$($HOME/.local/bin/mise activate zsh)"
 {{- end }}
