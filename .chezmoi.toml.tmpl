@@ -3,22 +3,14 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 {{- $isWSL := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "wsl") (not $devcontainer) -}}
 
-{{- $gitName := "" -}}
-{{- $gitEmail := "" -}}
+{{- $gitName := "Alberto Ponces" -}}
+{{- $gitEmail := "ponces26@gmail.com" -}}
 {{- $cmfEnabled := false -}}
 
-{{- if not $devcontainer -}}
-{{-     $gitName = promptStringOnce . "name" "What is your Git name" "Alberto Ponces" -}}
-{{-     $gitEmail = promptStringOnce . "email" "What is your Git email" "ponces26@gmail.com" -}}
-{{-     $cmfEnabled = and (lookPath "rbw" | isExecutable) (promptBoolOnce . "enabled" "Do you want to initialise configuration for CMF" false) -}}
-{{-     if $cmfEnabled -}}
-{{-         $rbwIdentityFields := (rbwFields "6fb5739a-e6a5-4bcb-9db2-b213007907fc") }}
-{{-         $gitEmail = $rbwIdentityFields.WorkEmail.value -}}
-{{-     end -}}
-{{- else -}}
-{{-     $gitName = "Alberto Ponces" -}}
-{{-     $gitEmail = "ponces26@gmail.com" -}}
-{{-     $cmfEnabled = false -}}
+{{- $tokenPath := joinPath .chezmoi.homeDir ".config" "cmfportal" "cmfportaltoken" -}}
+{{- if (stat $tokenPath) -}}
+{{-     $cmfEnabled = true -}}
+{{-     $gitEmail = (output "jq" "-rR" "split(\".\") | .[1] | @base64d | fromjson | .sub" $tokenPath) | lower | trim -}}
 {{- end }}
 
 [data.git]

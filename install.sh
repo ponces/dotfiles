@@ -20,11 +20,6 @@ if ! command -v mise >/dev/null; then
     curl -sfSL https://go.ponces.dev/mise | bash
 fi
 
-echo "Installing Bitwarden CLI"
-if ! command -v rbw >/dev/null; then
-    curl -sfSL https://go.ponces.dev/rbw | bash
-fi
-
 echo "Installing GitHub CLI"
 if ! command -v gh >/dev/null; then
     curl -sfSL https://go.ponces.dev/github | bash
