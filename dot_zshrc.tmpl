@@ -103,12 +103,28 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+gh auth status &>/dev/null || gh auth login
+
+{{ if .cmf.enabled -}}
+grep -q "personal access token =" $HOME/.azure/azuredevops/personalAccessTokens 2>/dev/null || az devops login
+{{- end }}
+
+{{ if eq .chezmoi.os "android" -}}
+sv-enable code
+sv-enable sshd
+rbw config set email {{ .git.email | quote }}
+rbw unlocked 2>/dev/null || rbw login
+rbw unlocked 2>/dev/null || rbw unlock
+rbw unlocked 2>/dev/null && rbw get Termux > $HOME/.ssh/authorized_keys
+{{- end }}
+
 export XDG_BIN_HOME="$HOME/.local/bin"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_RUNTIME_DIR="$HOME/.local/run"
 
+export AZ_TOKEN="$(grep 'personal access token =' $HOME/.azure/azuredevops/personalAccessTokens | cut -d'=' -f2 | xargs)"
 export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_AVD_HOME="$HOME/.android/avd"
 {{- if eq .chezmoi.os "android" }}
@@ -193,19 +209,6 @@ mise () { proot -b "$PREFIX/etc/resolv.conf:/etc/resolv.conf" -b "$PREFIX/etc/tl
 {{- end }}
 sendff() { ffsend upload --host https://send.vis.ee "$1" --downloads 5 --password "$USER" --verbose; }
 sshcode() { if [[ "$1" == *"@"* ]]; then host="$1"; target="$2"; else host="root@ubuild01.ponces.dev"; target="$1"; fi; code --folder-uri "vscode-remote://ssh-remote+$host/$target"; }
-
-{{ if eq .chezmoi.os "android" -}}
-sv-enable code
-sv-enable sshd
-rbw config set email {{ .git.email | quote }}
-rbw unlocked 2>/dev/null || rbw login
-rbw unlocked 2>/dev/null || rbw unlock
-rbw get Termux > $HOME/.ssh/authorized_keys
-{{- end }}
-
-{{- if .cmf.enabled -}}
-grep -q "personal access token =" $HOME/.azure/azuredevops/personalAccessTokens || az devops login
-{{- end }}
 
 {{ if stat (joinPath .chezmoi.homeDir ".config" "mise") -}}
 eval "$($HOME/.local/bin/mise activate zsh)"
