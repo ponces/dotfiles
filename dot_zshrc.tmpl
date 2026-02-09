@@ -165,7 +165,11 @@ export TERMV_FULL_SCREEN="true"
 export WIN_HOME="$(wslpath -u $(wslvar USERPROFILE))"
 {{- end }}
 
+alias buildbun='npm install && npm run build:bundle'
 alias bumppre='npm install && npm run bump:pre'
+alias bumppatch='npm install && npm run bump:patch'
+alias bumpfeat='npm install && npm run bump:feature'
+alias bumpbreak='npm install && npm run bump:breaking'
 alias cdev='cd $HOME/ponces/device/ponces/gsi'
 alias ctop='cd $HOME/ponces'
 {{- if (or (eq .chezmoi.hostname "ubuntu") (eq .chezmoi.hostname "fedora")) }}
