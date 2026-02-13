@@ -208,7 +208,7 @@ devcode() { if [ -f "$1" ]; then target="$1"; else target="$PWD"; fi; targetw="$
 {{- end }}
 gcurl() { curl -H "Authorization: token $GH_TOKEN" "$1" "$(curl -s -I "$2" | grep -i "^location:" | awk '{print $2}' | tr -d '\r')"; }
 gradle() { gradle-or-gradlew "$@" | logalize; }
-jwtd() { jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$1"; }
+jwtd() { echo "$1" | jq -R 'split(".") | .[1] | @base64d | fromjson'; }
 {{- if eq .chezmoi.os "android" }}
 mise () { proot -b "$PREFIX/etc/resolv.conf:/etc/resolv.conf" -b "$PREFIX/etc/tls:/etc/ssl" mise "$@"; }
 {{- end }}
