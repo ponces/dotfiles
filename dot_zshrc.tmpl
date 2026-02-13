@@ -144,6 +144,7 @@ export BUILD_JOBS="$(nproc --ignore=6)"
 export BUILD_JOBS="$(nproc --ignore=2)"
 {{- end }}
 export DOTNET_TOOLS_PATH="$HOME/.dotnet/tools"
+export CM_PORTAL_TOKEN="$(cat $HOME/.config/cmfportal/cmfportaltoken 2>/dev/null)"
 {{- if eq .chezmoi.hostname "ubuild01" }}
 export FILES_DIR="$HOME/.local/share/playground/docker/filebrowser/files"
 {{- end }}
