@@ -106,7 +106,7 @@ source $ZSH/oh-my-zsh.sh
 gh auth status &>/dev/null || gh auth login
 
 {{ if .cmf.enabled -}}
-grep -q "personal access token =" $HOME/.azure/azuredevops/personalAccessTokens 2>/dev/null || az devops login
+grep -qs "personal access token =" $HOME/.azure/azuredevops/personalAccessTokens || az devops login
 {{- end }}
 
 {{ if eq .chezmoi.os "android" -}}
@@ -124,7 +124,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_RUNTIME_DIR="$HOME/.local/run"
 
-export AZ_TOKEN="$(grep 'personal access token =' $HOME/.azure/azuredevops/personalAccessTokens | cut -d'=' -f2 | xargs)"
+export AZ_TOKEN="$(grep -s 'personal access token =' $HOME/.azure/azuredevops/personalAccessTokens | cut -d'=' -f2 | xargs)"
 export ANDROID_HOME="$HOME/.android/sdk"
 export ANDROID_AVD_HOME="$HOME/.android/avd"
 {{- if eq .chezmoi.os "android" }}
