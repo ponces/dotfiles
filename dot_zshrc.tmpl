@@ -155,7 +155,11 @@ export LD_LIBRARY_PATH="$HOME/.local/lib64:$HOME/.local/lib:$LD_LIBRARY_PATH"
 export PATH="$ANDROID_BUILD_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLCHAIN/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$DOTNET_TOOLS_PATH:$PATH"
 export PLAYGROUND_DIR="$HOME/.local/share/playground"
 {{- if (or (eq .chezmoi.hostname "ubuntu") (eq .chezmoi.hostname "fedora")) }}
+{{- if stat (joinPath .chezmoi.homeDir ".var" "app" "com.bitwarden.desktop") }}
+export SSH_AUTH_SOCK=$HOME/.var/app/com.bitwarden.desktop/.bitwarden-ssh-agent.sock
+{{- else }}
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+{{- end }}
 {{- end }}
 {{- if eq .chezmoi.os "android" }}
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw/ssh-agent-socket"
