@@ -6,29 +6,9 @@
 	cob = checkout -b
 {{- if .cmf.enabled }}
 	cobc = "!f() { \
-		if [ -z \"$1\" ]; then \
-			echo 'Usage: git cobc <workitem-id>'; \
-			return 1; \
-		fi; \
-		export REQUESTS_CA_BUNDLE=\"$HOME/.local/share/azure-cli/ca-certificates.crt\"; \
-		if [ ! -z \"$(git remote -v | grep criticalmanufacturing)\" ]; then \
-			opts=\"--org https://tfs-product.cmf.criticalmanufacturing.com/Products\"; \
-		fi; \
-		TITLE=$(az boards work-item show --id \"$1\" $opts --query 'fields.\"System.Title\"' -o tsv 2>/dev/null); \
-		if [ -z \"$TITLE\" ]; then \
-			echo \"Work item not found.\"; \
-			return 1; \
-		fi; \
-		BASE=\"$(git rev-parse --abbrev-ref HEAD)\"; \
-		if echo \"$BASE\" | grep -q '/'; then \
-			PREFIX=\"$(echo $BASE | sed 's/dev/feature/g')/\"; \
-			BASE=\"dev\"; \
-		elif echo \"$BASE\" | grep -q '-'; then \
-			PREFIX=\"\"; \
-			BASE=\"$(echo $BASE | cut -d'-' -f1)\"; \
-		fi; \
-		SANITIZED=$(echo \"$TITLE\" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g'); \
-		git checkout -b \"${PREFIX}${BASE}-$1-$SANITIZED\"; \
+		[ -z \"$1\" ] && echo 'Usage: git cobc <workitem-id>' && return 1; \
+		branch=$(curl -sfSL https://go.ponces.dev/wi | bash -s -- \"$1\" --branch); \
+		[ ! -z \"$branch\" ] && git checkout -b \"$branch\"; \
 	}; f"
 {{- end }}
 	discard = reset HEAD --hard
