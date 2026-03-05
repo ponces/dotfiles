@@ -1,7 +1,6 @@
 [alias]
 	alias = "!git config --get-regexp '^alias\\.' | sed 's/^alias\\.//;s/ / = /'"
 	amend = commit --amend --no-edit
-	pushfwl = push --force-with-lease
 	co = checkout
 	cob = checkout -b
 {{- if .cmf.enabled }}
@@ -11,14 +10,16 @@
 		[ ! -z \"$branch\" ] && git checkout -b \"$branch\"; \
 	}; f"
 {{- end }}
+	delete = "!f() { git branch -v | fzf | awk '{print $1}' | xargs git branch --delete --force; }; f"
 	discard = reset HEAD --hard
 	fixup = "!f() { git log --oneline --no-merges | fzf | awk '{print $1}' | xargs git commit --fixup; }; f"
-	root = rev-parse --show-toplevel
-	st = status
-	squash = "!f() { git log --oneline --no-merges | fzf | awk '{print $1}' | xargs git commit --squash; }; f"
-	sub = submodule update --init --recursive
 	lg = log --color --graph --pretty=format:'%C(auto)%h%d %s %C(black)%C(bold blue)%an %C(bold green)(%cr)' --abbrev-commit
+	pushfwl = push --force-with-lease
 	ri = rebase --interactive --autosquash
+	root = rev-parse --show-toplevel
+	squash = "!f() { git log --oneline --no-merges | fzf | awk '{print $1}' | xargs git commit --squash; }; f"
+	st = status
+	sub = submodule update --init --recursive
 	uncommit = reset --soft HEAD^
 	unstage = reset HEAD --
 	wip = "!f() { git add . && git commit -m wip -n; }; f"
@@ -39,9 +40,9 @@
 	pruneTags = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+	smudge = git-lfs smudge -- %f
 {{- if eq .chezmoi.os "windows" }}
 [http]
 	sslBackend = schannel
