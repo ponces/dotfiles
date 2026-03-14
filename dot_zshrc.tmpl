@@ -112,10 +112,13 @@ grep -qs "personal access token =" $HOME/.azure/azuredevops/personalAccessTokens
 {{ if eq .chezmoi.os "android" -}}
 sv-enable code
 sv-enable sshd
+{{- end }}
+
+{{ if eq .chezmoi.arch "arm64" -}}
 rbw config set email {{ .git.email | quote }}
 rbw unlocked 2>/dev/null || rbw login
 rbw unlocked 2>/dev/null || rbw unlock
-rbw unlocked 2>/dev/null && rbw get Termux > $HOME/.ssh/authorized_keys
+rbw unlocked 2>/dev/null && rbw get Android > $HOME/.ssh/authorized_keys
 {{- end }}
 
 export XDG_BIN_HOME="$HOME/.local/bin"
@@ -164,7 +167,7 @@ export SSH_AUTH_SOCK=$HOME/.var/app/com.bitwarden.desktop/.bitwarden-ssh-agent.s
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 {{- end }}
 {{- end }}
-{{- if eq .chezmoi.os "android" }}
+{{- if eq .chezmoi.arch "arm64" }}
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw/ssh-agent-socket"
 {{- end }}
 export TERMV_AUTO_UPDATE="false"
