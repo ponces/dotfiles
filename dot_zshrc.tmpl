@@ -193,9 +193,10 @@ alias cgit='cd $WIN_HOME/Git'
 {{- end }}
 {{- if eq .chezmoi.os "android" }}
 alias cdown='cd $HOME/storage/downloads'
+alias droidenter='su -c "$DROIDSPACES_PATH/bin/droidspaces --config $DROIDSPACES_PATH/Containers/Ubuntu/container.config enter"'
 alias droidstart='su -c "$DROIDSPACES_PATH/bin/droidspaces --config $DROIDSPACES_PATH/Containers/Ubuntu/container.config start"'
 alias droidstop='su -c "$DROIDSPACES_PATH/bin/droidspaces --config $DROIDSPACES_PATH/Containers/Ubuntu/container.config stop"'
-alias droidenter='su -c "$DROIDSPACES_PATH/bin/droidspaces --config $DROIDSPACES_PATH/Containers/Ubuntu/container.config enter"'
+alias droidspaces='droidstart 2>/dev/null; droidenter'
 {{- end }}
 alias gsib='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$BUILD_JOBS systemimage'
 alias gsic='source build/envsetup.sh && lunch ponces_gsi_arm64-bp4a-userdebug && make -j$BUILD_JOBS installclean'
